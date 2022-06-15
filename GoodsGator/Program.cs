@@ -1,4 +1,6 @@
 using GoodsGator.Data;
+using GoodsGator.Repositories;
+using GoodsGator.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +32,9 @@ builder.Services.Configure<IdentityOptions>(options =>
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 });
 
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,6 +43,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.SeedData();
 
 app.UseHttpsRedirection();
 
