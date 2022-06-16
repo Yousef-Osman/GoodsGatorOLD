@@ -11,35 +11,44 @@ public class ProductsController : ControllerBase
 {
     private readonly IGenericRepository<Product> _productRepo;
     private readonly IGenericRepository<Brand> _brandRepo;
-    private readonly IGenericRepository<ProductType> _typeRepo;
+    private readonly IGenericRepository<Category> _categoryRepo;
 
     public ProductsController(IGenericRepository<Product> productRepo,
                               IGenericRepository<Brand> brandRepo,
-                              IGenericRepository<ProductType> typeRepo)
+                              IGenericRepository<Category> CategoryRepo)
     {
         _productRepo = productRepo;
         _brandRepo = brandRepo;
-        _typeRepo = typeRepo;
+        _categoryRepo = CategoryRepo;
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetProductAsync(string id)
     {
-        var spec = new ProductWIthTypeAndBrandSpec();
-        return Ok(await _productRepo.GetEntityWithSpecAsync(spec));
+        var spec = new ProductWithCategoryAndBrandSpec(id);
+        var product = await _productRepo.GetEntityWithSpecAsync(spec);
+
+        if (product == null)
+            return NotFound();
+
+        return Ok(product);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetProductsAsync()
     {
-        var spec = new ProductWIthTypeAndBrandSpec();
+        var spec = new ProductWithCategoryAndBrandSpec();
         return Ok(await _productRepo.GetAllWithSpecAsync(spec));
     }
 
     [HttpGet("Brands/{id}")]
     public async Task<IActionResult> GetBrandAsync(int id)
     {
-        return Ok(await _brandRepo.GetByIdAsync(id));
+        var brand = await _brandRepo.GetByIdAsync(id);
+        if (brand == null || brand.IsDeleted)
+            return NotFound();
+
+        return Ok(brand);
     }
 
     [HttpGet("Brands")]
@@ -48,15 +57,20 @@ public class ProductsController : ControllerBase
         return Ok(await _brandRepo.GetAllAsync());
     }
 
-    [HttpGet("Types/{id}")]
-    public async Task<IActionResult> GetProductTypeAsync(int id)
+    [HttpGet("Categories/{id}")]
+    public async Task<IActionResult> GetProductCategoryAsync(int id)
     {
-        return Ok(await _typeRepo.GetByIdAsync(id));
+        var category = await _categoryRepo.GetByIdAsync(id);
+
+        if (category == null || category.IsDeleted)
+            return NotFound();
+
+        return Ok(category);
     }
 
-    [HttpGet("Types")]
-    public async Task<IActionResult> GetProductTypesAsync()
+    [HttpGet("Categories")]
+    public async Task<IActionResult> GetCategoriesAsync()
     {
-        return Ok(await _typeRepo.GetAllAsync());
+        return Ok(await _categoryRepo.GetAllAsync());
     }
 }

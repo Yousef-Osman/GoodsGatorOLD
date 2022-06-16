@@ -16,13 +16,13 @@ public class ProductRepository : IProductRepository
 
     public async Task<Product> GetProductAsync(string id)
     {
-        return await _context.Products.Include(a => a.Brand).Include(a => a.ProductType)
+        return await _context.Products.Include(a => a.Brand).Include(a => a.Category)
             .Where(a => a.IsDeleted == false).FirstOrDefaultAsync(a => a.Id == id);
     }
 
     public async Task<IReadOnlyList<Product>> GetProductsAsync()
     {
-        return await _context.Products.Include(a=>a.Brand).Include(a=>a.ProductType)
+        return await _context.Products.Include(a=>a.Brand).Include(a=>a.Category)
             .Where(a => a.IsDeleted == false).ToListAsync();
     }
 
@@ -36,13 +36,13 @@ public class ProductRepository : IProductRepository
         return await _context.Brands.Where(a => a.IsDeleted == false).ToListAsync();
     }
 
-    public async Task<ProductType> GetProductTypeAsync(int id)
+    public async Task<Category> GetCategoryAsync(int id)
     {
-        return await _context.ProductTypes.Where(a => a.IsDeleted == false).FirstOrDefaultAsync(a => a.Id == id);
+        return await _context.Categories.Where(a => a.IsDeleted == false).FirstOrDefaultAsync(a => a.Id == id);
     }
 
-    public async Task<IReadOnlyList<ProductType>> GetProductTypesAsync()
+    public async Task<IReadOnlyList<Category>> GetCategoriesAsync()
     {
-        return await _context.ProductTypes.Where(a => a.IsDeleted == false).ToListAsync();
+        return await _context.Categories.Where(a => a.IsDeleted == false).ToListAsync();
     }
 }

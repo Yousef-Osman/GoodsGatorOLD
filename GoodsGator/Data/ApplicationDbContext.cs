@@ -11,5 +11,5 @@ public class ApplicationDbContext: IdentityDbContext
 
     public DbSet<Product> Products { get; set; }
     public DbSet<Brand> Brands { get; set; }
-    public DbSet<ProductType> ProductTypes { get; set; }
+    public DbSet<Category> Categories { get; set; }
 }

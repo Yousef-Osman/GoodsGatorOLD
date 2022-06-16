@@ -2,7 +2,7 @@
 
 namespace GoodsGator.Models.DbEntities;
 
-public class ProductType : BaseEntity
+public class Category : BaseEntity
 {
     [Key]
     public int Id { get; set; }

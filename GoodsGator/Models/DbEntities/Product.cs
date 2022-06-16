@@ -21,8 +21,8 @@ public class Product: BaseEntity
     [Required]
     public int BrandId { get; set; }
     [Required]
-    public int ProductTypeId { get; set; }
+    public int CategoryId { get; set; }
 
     public Brand Brand { get; set; }
-    public ProductType ProductType { get; set; }
+    public Category Category { get; set; }
 }

@@ -1,22 +1,17 @@
 [
   {
-    //"Id": 1,
     "Name": "Dell"
   },
   {
-    //"Id": 2,
     "Name": "HP"
   },
   {
-    //"Id": 3,
     "Name": "Lenovo"
   },
   {
-    //"Id": 4,
     "Name": "Toshiba"
   },
   {
-    //"Id": 5,
     "Name": "Asus"
   }
 ]

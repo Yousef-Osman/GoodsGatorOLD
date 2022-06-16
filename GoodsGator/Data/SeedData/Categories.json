@@ -1,14 +1,11 @@
 [
   {
-    //"Id": 1,
     "Name": "PC"
   },
   {
-    //"Id": 2,
     "Name": "Laptop"
   },
   {
-    //"Id": 3,
     "Name": "Accessories"
   }
 ]
