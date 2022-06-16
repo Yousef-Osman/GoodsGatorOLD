@@ -2,7 +2,7 @@
 
 namespace GoodsGator.Models.DbEntities;
 
-public class Product: BaseModel
+public class Product: BaseEntity
 {
     public Product()
     {

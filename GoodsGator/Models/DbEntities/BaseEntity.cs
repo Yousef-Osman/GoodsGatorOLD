@@ -2,9 +2,9 @@
 
 namespace GoodsGator.Models.DbEntities;
 
-public class BaseModel
+public class BaseEntity
 {
-    public BaseModel()
+    public BaseEntity()
     {
         CreatedOn = DateTime.Now;
         IsDeleted = false;
