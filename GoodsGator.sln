@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodsGator", "GoodsGator\GoodsGator.csproj", "{EA81D521-3045-44B1-A4E6-6803F1701FC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoodsGatorAPI", "GoodsGator\GoodsGatorAPI.csproj", "{EA81D521-3045-44B1-A4E6-6803F1701FC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
