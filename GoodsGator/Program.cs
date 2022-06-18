@@ -1,4 +1,5 @@
 using GoodsGator.Data;
+using GoodsGator.Helpers;
 using GoodsGator.Repositories;
 using GoodsGator.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -33,6 +34,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 
 var app = builder.Build();
@@ -47,6 +49,7 @@ if (app.Environment.IsDevelopment())
 app.SeedData();
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseAuthorization();
 
