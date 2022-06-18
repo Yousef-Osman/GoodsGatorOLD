@@ -1,4 +1,6 @@
-﻿using GoodsGator.Models.DbEntities;
+﻿using AutoMapper;
+using GoodsGator.Models.DbEntities;
+using GoodsGator.Models.DTOs;
 using GoodsGator.Repositories.Interfaces;
 using GoodsGator.Specifications;
 using Microsoft.AspNetCore.Http;
@@ -12,14 +14,17 @@ public class ProductsController : ControllerBase
     private readonly IGenericRepository<Product> _productRepo;
     private readonly IGenericRepository<Brand> _brandRepo;
     private readonly IGenericRepository<Category> _categoryRepo;
+    private readonly IMapper _mapper;
 
     public ProductsController(IGenericRepository<Product> productRepo,
                               IGenericRepository<Brand> brandRepo,
-                              IGenericRepository<Category> CategoryRepo)
+                              IGenericRepository<Category> CategoryRepo,
+                              IMapper mapper)
     {
         _productRepo = productRepo;
         _brandRepo = brandRepo;
         _categoryRepo = CategoryRepo;
+        _mapper = mapper;
     }
 
     [HttpGet("{id}")]
@@ -31,14 +36,15 @@ public class ProductsController : ControllerBase
         if (product == null)
             return NotFound();
 
-        return Ok(product);
+        return Ok(_mapper.Map<Product, ProductDTO>(product));
     }
 
     [HttpGet]
     public async Task<IActionResult> GetProductsAsync()
     {
         var spec = new ProductWithCategoryAndBrandSpec();
-        return Ok(await _productRepo.GetAllWithSpecAsync(spec));
+        var products = await _productRepo.GetAllWithSpecAsync(spec);
+        return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDTO>>(products));
     }
 
     [HttpGet("Brands/{id}")]
